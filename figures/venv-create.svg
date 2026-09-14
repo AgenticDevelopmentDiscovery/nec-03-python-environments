@@ -1,0 +1,47 @@
+<svg viewBox="0 0 980 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">The venv create-activate-install-freeze sequence, annotated</title>
+  <desc id="desc">Four terminal commands, each with an arrow to a caption explaining what it does: python -m venv .venv creates the sandbox; source .venv/bin/activate points the shell at it; pip install -r requirements.txt installs from the spec; pip freeze redirected to a file writes the exact versions actually installed, pip's equivalent of a lockfile.</desc>
+
+  <rect width="980" height="280" fill="#ffffff"/>
+
+  <!-- terminal window -->
+  <rect x="20" y="14" width="520" height="252" rx="10" fill="#23373b"/>
+  <rect x="20" y="14" width="520" height="24" rx="10" fill="#1a2a2e"/>
+  <rect x="20" y="27" width="520" height="11" fill="#1a2a2e"/>
+  <circle cx="38" cy="26" r="5" fill="#EB811B"/>
+  <circle cx="56" cy="26" r="5" fill="#e0c34c"/>
+  <circle cx="74" cy="26" r="5" fill="#6bbf6b"/>
+  <text x="280" y="30" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#9fb0b5" text-anchor="middle">venv</text>
+
+  <g font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="13">
+    <text x="34" y="68" fill="#f5f5f5"><tspan fill="#EB811B">$ </tspan>python -m venv .venv</text>
+    <text x="34" y="122" fill="#f5f5f5"><tspan fill="#EB811B">$ </tspan>source .venv/bin/activate</text>
+    <text x="34" y="176" fill="#f5f5f5"><tspan fill="#EB811B">$ </tspan>pip install -r requirements.txt</text>
+    <text x="34" y="230" fill="#f5f5f5" font-size="12"><tspan fill="#EB811B">$ </tspan>pip freeze &gt; requirements-lock.txt</text>
+  </g>
+
+  <defs>
+    <marker id="arrowhead" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#23373b"/>
+    </marker>
+  </defs>
+
+  <line x1="560" y1="62" x2="605" y2="62" stroke="#23373b" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+  <line x1="560" y1="116" x2="605" y2="116" stroke="#23373b" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+  <line x1="560" y1="170" x2="605" y2="170" stroke="#23373b" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+  <line x1="560" y1="224" x2="605" y2="224" stroke="#23373b" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+
+  <g font-family="Helvetica, Arial, sans-serif">
+    <text x="615" y="56" font-size="13" font-weight="bold" fill="#23373b">creates .venv/</text>
+    <text x="615" y="72" font-size="10" fill="#4a5a5e">own interpreter, empty site-packages</text>
+
+    <text x="615" y="110" font-size="13" font-weight="bold" fill="#23373b">activates it</text>
+    <text x="615" y="126" font-size="10" fill="#4a5a5e">Scripts\activate on Windows</text>
+
+    <text x="615" y="164" font-size="13" font-weight="bold" fill="#23373b">installs from the spec</text>
+    <text x="615" y="180" font-size="10" fill="#4a5a5e">the loose requirements.txt range</text>
+
+    <text x="615" y="218" font-size="13" font-weight="bold" fill="#23373b">writes a lockfile of sorts</text>
+    <text x="615" y="234" font-size="10" fill="#4a5a5e">exact versions — rerun to update</text>
+  </g>
+</svg>

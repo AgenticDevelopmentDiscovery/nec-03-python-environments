@@ -9,12 +9,12 @@
 #
 # EDIT ALL OF THIS. Every value below is a placeholder.
 
-title: "Your Project Title"
-subtitle: "A one-line statement of what it is"
+title: "Python Environments & Reproducibility"
+subtitle: "Pinning, lockfiles, and why \"works on my machine\" isn't science"
 author:
-  - Team Member One
-  - Team Member Two
-date: \today
+  - Manendri Uduwela
+  - Claude Code
+date: Sept 16, 2026
 
 # Where `--citeproc` puts the reference list. Without this the bibliography is
 # appended to the last section with no heading — and, in the slides, becomes an
@@ -26,13 +26,13 @@ reference-section-title: References
 # `audience` is the standard the pedagogy reviewer judges against. It is the
 # highest-leverage field in this file: a vague audience produces vague review,
 # because the reviewer has nothing to hold the document to.
-#
-# Be specific. "Second-year undergraduates who have had one statistics course
-# but have never written code" is useful. "Technical readers" is not.
+
 
 audience: >-
-  Describe your intended reader in one or two sentences: their background, what
-  they already know, and what they should be able to do after reading.
+  Graduate students in the agentic-development course who can already write and run a
+  Python script and have installed packages with `pip` before, but have never
+  created a virtual environment, generated a lockfile, or had to reproduce a
+  result on a machine other than the one that produced it.
 
 # --- Presentation only -------------------------------------------------------
 # Any beamer theme in TeX Live. Metropolis is clean and projects well.

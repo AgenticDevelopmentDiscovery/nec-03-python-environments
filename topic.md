@@ -1,87 +1,92 @@
 # Topic
 
-<!-- THE PROPOSAL. Never rendered into the document, the slides, or the site —
-     but every reviewer reads it, and the panel judges the tutorial against what
-     you promise here. Write it before you write a section.
-
-     This is the document-level counterpart to a section's `.concepts.md`: the
-     same job of holding intent separately from what ships, one level up.
-
-     Keep it short. A page is plenty. Delete these comments and the guidance
-     blockquotes as you fill it in. -->
-
 ## In one sentence
 
-> The topic, named and bounded, in a single sentence a stranger could repeat
-> back. If it takes two, the topic is probably two topics.
-
-Replace this line.
+Python environments and lockfiles turn "works on my machine" into a
+recreatable, auditable fact instead of a shrug.
 
 ## What it is
 
-> A paragraph of plain description. What is the tool, technique, or notion —
-> defined by what it does, not by what it is built from or why it is good.
->
-> This seeds `01-context`. If you cannot write it without arguing for the topic,
-> the argument is doing work the definition should be doing.
-
-Replace this paragraph.
+A Python environment is an isolated set of installed packages tied to a
+specific interpreter, so one project's dependencies cannot collide with
+another's. `venv` is the built-in per-project sandbox; `conda` extends the same
+idea to non-Python and binary dependencies; `uv` is a fast modern
+resolver/installer that builds environments and lockfiles in seconds.
+Reproducibility on top of that comes from pinning — a loose requirement like
+`numpy` means "whatever is newest today," a pinned one like `numpy==2.1.3`
+means exactly that build — and, more completely, from a lockfile
+(`uv.lock`, `poetry.lock`, `conda-lock`, or a fully-pinned `requirements.txt`)
+that records the entire resolved dependency tree, transitive packages
+included, so anyone on any machine can reconstruct the identical environment.
 
 ## Why it belongs in this course
 
-> The case for spending a reader's time on it: what it lets an agentic system do
-> that is hard or impossible otherwise, and what goes wrong without it.
->
-> This seeds `02-motivation`. Be specific to agentic development — if the reason
-> would read the same for any programming topic, keep going.
-
-Replace this paragraph.
+Agent runs are experiments, and an experiment you cannot rerun is not
+evidence. When an agent fits a baseline or scores against the eval harness,
+the result only means something if the environment underneath it is fixed —
+a silent version bump in a library the harness depends on can change outputs
+or break it outright. Without pinning, a reported regression could be real or
+could be a dependency that drifted; there is no way to tell them apart. This
+is specific to agentic development, not programming generally: an agent
+proposes and evaluates artifacts unattended, over many iterations, with no
+human in the loop to notice that the ground shifted between runs.
 
 ## What the reader will be able to do
 
-> The capability the tutorial delivers, as a short list of actions the reader can
-> take afterwards that they could not take before. Not topics covered — things
-> done.
->
-> This is the promise `04-conclusion` has to keep, and the standard the panel
-> holds the whole tutorial to. Vague entries here buy vague review, the same way
-> a vague `audience` does.
-
-- (capability)
-- (capability)
+- Create an isolated environment with `venv` and with `uv`, and explain when
+  each (or `conda`) is the right choice.
+- Generate a lockfile and use it to reconstruct a byte-identical environment
+  on a different machine or after deleting the original.
+- Explain the difference between pinning a direct dependency and locking the
+  full resolved tree, and why only the latter survives "works on my machine."
+- Recognize an unpinned-dependency drift as the cause of a changed result,
+  rather than mistaking it for a real regression.
 
 ## Scope
 
-> What the tutorial covers and, explicitly, what it does not. Adjacent topics a
-> reader might expect and will not get belong here with one clause of reason —
-> naming them stops a reviewer reporting them as gaps and stops the team drifting
-> back into them.
-
 **In scope**
 
-- (in)
+- `venv` and `uv` as the two hands-on tools; `conda` covered by description,
+  not walked through, as the answer for non-Python/binary dependencies.
+- Pinning vs. lockfiles, and `requirements.txt`/`pyproject.toml` (human-edited
+  spec) vs. the lockfile (machine truth).
+- Seeding randomness (`PYTHONHASHSEED`, library seeds) as the second axis of
+  reproducibility, distinct from environment locking.
+- Committing the lockfile as a repo artifact.
 
 **Out of scope**
 
-- (out, and why)
+- Packaging and publishing a package to PyPI — a different problem
+  (distribution, not reproducibility).
+- Container-level reproducibility (Docker) — one layer below the interpreter;
+  worth a pointer in "where to go next," not a section of its own.
+- `poetry` and `pipenv` as hands-on tools — `venv` and `uv` make the
+  pinning/lockfile point without a tool survey.
 
 ## Shape
 
-> How the four sections divide the material, if you already know. Which one
-> carries the weight, what the worked example in `03-content` will be, whether
-> the arc needs changing for this subject.
->
-> Leave it thin on the first pass. It is here so the reason for a structural
-> choice is written down before the rounds start arguing about it.
-
-- (note)
+- `03-content` carries the weight: the `venv` vs. `uv` walkthrough, the
+  pinning-vs-lockfile distinction, and the destroy-and-rebuild demo that
+  proves a lockfile actually reproduces the environment.
+- The worked example in `03-content` is the course's own symbolic-regression
+  substrate: build the environment two ways, lock it, delete it, rebuild from
+  the lock, and rerun the linear-regression baseline to show identical
+  fitness. The bonus (bump one dependency unpinned, watch the result shift)
+  is the pitfall that motivates committing the lockfile.
+- `02-motivation`'s failure case is a silent version bump in a library the
+  eval harness depends on (e.g. SciPy or NumPy) changing fitted output —
+  concrete and drawn from the same substrate as the demo, not a generic
+  "a dependency updated."
+- `04-conclusion` folds in how the capability is used downstream — C1's
+  reproducible-repo challenge, C2's comparable leaderboard, C4's
+  generate→evaluate→select loop — as concrete "what you can do now," since the
+  shipped arc has no separate connections section.
 
 ## Open questions
 
-> What the team has not settled: an unresolved framing, an example you are not
-> sure earns its place, a claim you cannot yet support.
->
-> Naming these is cheap now and expensive in review. The panel reads them and
-> will not report a known unknown as a discovery.
-
-- (question)
+- How much `conda`/binary-dependency framing does `01-context` need, given the
+  audience already runs binary-heavy scientific packages?
+- Does the destroy-and-rebuild demo need a figure (environment/lockfile
+  relationship diagram), or does the CLI transcript carry it on its own?
+- `uv`'s lockfile format is still young — how much to hedge that in
+  `04-conclusion`'s open edges versus just teaching current practice?

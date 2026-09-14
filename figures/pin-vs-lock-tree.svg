@@ -1,0 +1,56 @@
+<svg viewBox="0 0 980 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Pinning a direct dependency versus locking the full tree</title>
+  <desc id="desc">Pinning numpy fixes only that package, leaving its transitive dependencies scipy and openblas unpinned. A lockfile pins every node in the tree, direct and transitive alike.</desc>
+
+  <rect width="980" height="210" fill="#ffffff"/>
+  <line x1="490" y1="8" x2="490" y2="202" stroke="#d8dee0" stroke-width="2" stroke-dasharray="6,6"/>
+
+  <text x="240" y="20" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#23373b" text-anchor="middle">pin only</text>
+  <text x="740" y="20" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#23373b" text-anchor="middle">lockfile</text>
+
+  <defs>
+    <marker id="arrowC" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#8a9598"/>
+    </marker>
+  </defs>
+
+  <g font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11">
+    <!-- LEFT: pin only -->
+    <rect x="165" y="28" width="150" height="32" rx="5" fill="#ffffff" stroke="#23373b" stroke-width="1.5"/>
+    <text x="240" y="49" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" fill="#23373b">your project</text>
+
+    <line x1="240" y1="60" x2="240" y2="84" stroke="#8a9598" stroke-width="2" marker-end="url(#arrowC)"/>
+    <rect x="165" y="86" width="150" height="32" rx="5" fill="#2E7D32"/>
+    <text x="240" y="107" text-anchor="middle" fill="#ffffff">numpy==2.1.3</text>
+
+    <line x1="215" y1="118" x2="140" y2="142" stroke="#8a9598" stroke-width="2" marker-end="url(#arrowC)"/>
+    <line x1="270" y1="118" x2="345" y2="142" stroke="#8a9598" stroke-width="2" marker-end="url(#arrowC)"/>
+
+    <rect x="65" y="144" width="150" height="32" rx="5" fill="#ffffff" stroke="#EB811B" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <text x="140" y="165" text-anchor="middle" fill="#EB811B">scipy ?</text>
+
+    <rect x="270" y="144" width="150" height="32" rx="5" fill="#ffffff" stroke="#EB811B" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <text x="345" y="165" text-anchor="middle" fill="#EB811B">openblas ?</text>
+
+    <text x="240" y="196" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11" fill="#4a5a5e">direct dep pinned, the rest can float</text>
+
+    <!-- RIGHT: lockfile -->
+    <rect x="665" y="28" width="150" height="32" rx="5" fill="#ffffff" stroke="#23373b" stroke-width="1.5"/>
+    <text x="740" y="49" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" fill="#23373b">your project</text>
+
+    <line x1="740" y1="60" x2="740" y2="84" stroke="#8a9598" stroke-width="2" marker-end="url(#arrowC)"/>
+    <rect x="665" y="86" width="150" height="32" rx="5" fill="#2E7D32"/>
+    <text x="740" y="107" text-anchor="middle" fill="#ffffff">numpy==2.1.3</text>
+
+    <line x1="715" y1="118" x2="640" y2="142" stroke="#8a9598" stroke-width="2" marker-end="url(#arrowC)"/>
+    <line x1="770" y1="118" x2="845" y2="142" stroke="#8a9598" stroke-width="2" marker-end="url(#arrowC)"/>
+
+    <rect x="565" y="144" width="150" height="32" rx="5" fill="#2E7D32"/>
+    <text x="640" y="165" text-anchor="middle" fill="#ffffff" font-size="10">scipy==1.13.0</text>
+
+    <rect x="770" y="144" width="150" height="32" rx="5" fill="#2E7D32"/>
+    <text x="845" y="165" text-anchor="middle" fill="#ffffff" font-size="10">openblas==0.3.27</text>
+
+    <text x="740" y="196" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11" fill="#2E7D32">every node pinned — replayable exactly</text>
+  </g>
+</svg>

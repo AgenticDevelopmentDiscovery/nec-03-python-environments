@@ -1,33 +1,30 @@
 # Conclusion
 
-<!-- Every `##` becomes one slide. One idea each. -->
-
 ## What you can do now
 
-> The recap, stated as capability rather than as summary. Not "we covered X" —
-> rather, what the reader can now do that they could not before.
->
-> Keep it to what the tutorial actually delivered. This paragraph and
-> § What this tutorial covers must agree exactly; the panel will check.
-
-Replace this paragraph.
+You can create an isolated Python environment with `venv` or `uv`, lock it,
+and reconstruct it exactly — on another machine, or after deleting the
+original. You can explain why pinning isn't enough, and name the transitive
+packages a lockfile catches that a pin misses. This isn't academic here:
+it's the lockfile C1 requires as an artifact, what makes C2's leaderboard
+comparable across students, and the precondition for C4's
+generate→evaluate→select loop to run without a mid-loop reinstall quietly
+changing what it measures.
 
 ## Where to go next
 
-> The next thing to learn, and why it is the next one. Name the specific
-> resource, tool, or topic and say what it adds.
->
-> Order matters more than length. Three pointers in a sensible sequence beat a
-> list of ten a reader has to triage themselves.
-
-Replace this paragraph.
+Start with the `uv` docs [@uv-docs] for `uv run` and workspaces, which this
+tutorial didn't touch. Read "Twelve-Factor App" [@twelve-factor]
+§Dependencies and §Config for the same mindset applied to whole services. If
+a dependency needs more than pure Python and wheels, that's when to read the
+`conda`/`conda-lock` docs [@conda-docs; @conda-lock] this tutorial only
+described. Container-level reproducibility (Docker) is the next layer down —
+worth knowing exists, out of scope here.
 
 ## Open edges
 
-> What is still unsettled — where the tool is changing, where practice has not
-> converged, where you would not yet give firm advice.
->
-> End on the opening you leave, not on a restatement. A tutorial that admits its
-> edges is more trustworthy than one that implies the topic is finished.
-
-Replace this paragraph.
+`uv`'s lockfile format is still young — treat `uv.lock` as something to
+regenerate with a current `uv`, not a format to depend on staying fixed. And
+locking the environment is only half of reproducibility: it fixes *what's
+installed*, not *what happens at runtime* — GPU nondeterminism, unseeded
+randomness, and network calls all sit outside what a lockfile can pin.

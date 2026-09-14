@@ -1,15 +1,69 @@
 % Bibliography for all three outputs.
 %
-% Cite from any `.prose.md` section with pandoc's syntax:  [@knuth1984]
-% Pandoc's --citeproc renders the citation and builds the reference list.
+% Cite from any `.prose.md` section with pandoc's syntax:  [@citekey]
+% Multiple in one bracket:  [@key-one; @key-two]
+% To name the author in your own sentence instead of a parenthetical:
+% @citekey (no brackets) — e.g. "As @uv-docs explains..." renders as
+% "As Astral (2026) explains...".
 %
-% Delete this example and add your own.
+% Pandoc's --citeproc (already on in the justfile) renders these and builds
+% the reference list under the heading set by `reference-section-title` in
+% metadata.yaml. No entry here is cited unless a [@key] for it appears in a
+% .prose.md file — an uncited entry just sits unused.
 
-@article{example2024,
-  author  = {Lastname, Firstname and Other, Another},
-  title   = {An Example Entry You Should Replace},
-  journal = {Journal of Placeholder Studies},
-  year    = {2024},
-  volume  = {1},
-  pages   = {1--10}
+@misc{python-venv,
+  author  = {{Python Software Foundation}},
+  title   = {venv --- Creation of Virtual Environments},
+  year    = {2026},
+  url     = {https://docs.python.org/3/library/venv.html},
+  urldate = {2026-09-14},
+  note    = {Python 3 documentation}
+}
+
+@misc{pip-userguide,
+  author  = {{Python Packaging Authority}},
+  title   = {pip Documentation: User Guide},
+  year    = {2026},
+  url     = {https://pip.pypa.io/en/stable/user_guide/},
+  urldate = {2026-09-14}
+}
+
+@misc{uv-docs,
+  author  = {{Astral}},
+  title   = {uv: An Extremely Fast Python Package and Project Manager},
+  year    = {2026},
+  url     = {https://docs.astral.sh/uv/},
+  urldate = {2026-09-14}
+}
+
+@misc{conda-docs,
+  author  = {{Anaconda, Inc.}},
+  title   = {Conda Documentation},
+  year    = {2026},
+  url     = {https://docs.conda.io/},
+  urldate = {2026-09-14}
+}
+
+@misc{conda-lock,
+  author  = {{conda-lock contributors}},
+  title   = {conda-lock: Lightweight Lockfile for Conda Environments},
+  year    = {2026},
+  url     = {https://github.com/conda/conda-lock},
+  urldate = {2026-09-14}
+}
+
+@misc{twelve-factor,
+  author  = {Wiggins, Adam},
+  title   = {The Twelve-Factor App},
+  year    = {2017},
+  url     = {https://12factor.net/},
+  urldate = {2026-09-14}
+}
+
+@misc{pep405,
+  author  = {Meyer, Carl},
+  title   = {{PEP} 405 -- Python Virtual Environments},
+  year    = {2012},
+  url     = {https://peps.python.org/pep-0405/},
+  urldate = {2026-09-14}
 }

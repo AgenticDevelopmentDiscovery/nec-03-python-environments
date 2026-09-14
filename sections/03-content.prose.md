@@ -1,47 +1,61 @@
 # Content
 
-<!-- Every `##` becomes one slide. One idea each.
-     This is the main portion of the tutorial and the section most likely to
-     need more `##` units than the four below. Add them freely — each new
-     heading is a new slide, and splitting is how you find the joints. -->
-
 ## How it works
 
-> The mental model, before any procedure. What are the moving parts and how do
-> they relate? A reader who has this can predict what the tool will do in a case
-> you never showed them; one who has only the steps cannot.
->
-> This is the unit most likely to need a figure — the boxes, the arrows, the one
-> relationship the prose leaves abstract. See `figures/README.md`.
+Four things are easy to confuse: the **interpreter**, the **package set**,
+the **spec**, and the **lockfile**.
 
-Replace this paragraph.
+![Spec: loose, resolved each time. Lockfile: exact, replayed each time.](figures/env-mental-model.svg){#fig:mental-model width=88%}
 
-## Using it: the basic case
+A spec is a range, resolved each install. A lockfile is one exact build,
+replayed — so it can't drift.
 
-> The first walkthrough, concrete enough to follow along. Show the actual
-> commands, code, or configuration — not a description of them.
->
-> Pick the smallest case that is still real. A toy that could not occur in
-> practice teaches the toy; a realistic case teaches the tool.
+## `venv`: create and activate
 
-Replace this paragraph.
+The built-in path: create, activate, install from the spec with `pip` —
+then freeze what actually got installed into a lockfile of your own.
 
-## Using it: going further
+![`venv`: create, activate, install, freeze.](figures/venv-create.svg){#fig:venv-create width=90%}
 
-> The second case, one step harder, chosen to expose something the first one
-> hid. Say what is new here and why the basic case could not show it.
->
-> Split this into several `##` units if it does not fit one slide. That split is
-> a feature: it forces you to find the joints in your own explanation.
+It pins every version, but not hashes or platform — rerun it by hand after
+any change.
 
-Replace this paragraph.
+## `uv`: fast installs and lockfiles
+
+`uv` does the same three jobs faster, and treats the lockfile as a
+first-class output.
+
+![`uv`: create, install, lock.](figures/uv-lockfile.svg){#fig:uv-lockfile width=88%}
+
+`conda` covers dependencies `uv`/`pip` can't build themselves — compiled
+C/Fortran libraries, GPU toolkits — at the cost of a slower resolver; reach
+for it when a dependency needs more than pure Python and wheels.
+
+## Pinning vs. lockfiles
+
+Pinning a direct dependency (`numpy==2.1.3`) fixes *that* package — not the
+dozens it pulls in transitively.
+
+![Pinning fixes one node; a lockfile pins the whole tree.](figures/pin-vs-lock-tree.svg){#fig:pin-vs-lock width=88%}
+
+A lockfile pins all of them. Treat the spec as *intent* and the lockfile as
+*fact*: commit both, reproduce from the lockfile.
+
+## Demo: prove it with the symbolic-regression substrate
+
+Build the same environment two ways — `venv`+`pip`, and separately `uv` —
+and confirm both run the linear-regression baseline identically. Generate a
+lockfile, **delete the environment entirely**, rebuild it from the lock
+alone, and rerun: the fitness score matches to the last digit. Then bump one
+dependency without pinning it and rerun — watch the score shift with no code
+change, the exact failure `02-motivation` described, now reproduced on
+purpose.
 
 ## Pitfalls
 
-> The mistakes people actually make, and what each one looks like when it
-> happens. Lead with the symptom the reader will see, then the cause.
->
-> Prefer the errors you have made yourself. Invented pitfalls are obvious to a
-> reader who has made the real ones.
-
-Replace this paragraph.
+- **Pinning direct dependencies and calling it done.** Leaves every
+  transitive dependency unpinned — only a lockfile closes that gap.
+- **Never committing the lockfile.** One that lives on a single machine
+  reproduces nothing.
+- **Locking the environment and forgetting the random seed.** Environment
+  locking and seeding are independent — fixing one doesn't fix the other.

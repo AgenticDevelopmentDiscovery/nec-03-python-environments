@@ -1,40 +1,38 @@
 # Context
 
-<!-- SHIPPED PROSE. This file is rendered into all three outputs.
-     Every `##` below becomes one slide — keep each to one idea.
-     Delete these comments and the guidance blockquotes as you write. -->
-
 ## What this is
 
-> Name the topic and say plainly what it is, in one paragraph, before any
-> argument about why it matters. A reader who stops here should be able to
-> describe the thing correctly to someone else, even if coarsely.
->
-> Define it in terms of what it *does*, not what it is built from. Resist the
-> urge to justify it — that is the next section's job, and mixing the two is the
-> most common way a tutorial loses its opening.
-
-Replace this paragraph.
+A Python environment is an isolated set of installed packages tied to one
+interpreter, so one project's dependencies can't collide with another's.
+`venv` is the built-in version: a per-project folder with its own `python`
+and `site-packages`. `conda` extends this to non-Python and binary
+dependencies; `uv` is a fast modern resolver that builds environments and
+lockfiles in seconds. Whatever the tool, a **lockfile** is what makes it
+reproducible — it records the full resolved dependency tree, every
+transitive package pinned, so anyone can reconstruct the identical
+environment.
 
 ## Where it came from
 
-> The short history: what problem it was invented to solve, by whom or in what
-> setting, and what people did before it existed.
->
-> This is not a literature survey and not a timeline. Two or three sentences of
-> origin earn their place because they explain the design — most of what looks
-> arbitrary about a tool is a fossil of the problem it was built for. Cut any
-> history that does not explain something the reader will meet later.
+Before `venv` — standard since Python 3.3 — every project on a machine shared
+one global `site-packages` — two projects needing different versions of the
+same library simply couldn't coexist.
 
-Replace this paragraph.
+![Before `venv`, two projects collide over one shared site-packages. After, each gets its own.](figures/isolation-before-after.svg){#fig:isolation width=92%}
+
+`conda` grew out of the scientific Python community, for packages wrapping
+compiled C/Fortran code `pip` can't build. `uv` is newer still: the same
+jobs, an order of magnitude faster, with the lockfile built in rather than
+bolted on.
 
 ## What this tutorial covers
 
-> The scope and the roadmap. Name each section and what the reader gets from it,
-> and say what the reader will be able to *do* by the end — a capability, not a
-> list of topics.
->
-> Say what is out of scope here too. This is the promise the rest of the tutorial
-> must keep, and the panel will check it against what you actually delivered.
-
-Replace this paragraph.
+This tutorial covers creating environments with `venv` and `uv`, when to
+reach for `conda` instead, and the difference between pinning a dependency
+and locking the full resolved tree — what actually makes a run reproducible.
+The hands-on demo builds an environment two ways, locks it, deletes it, and
+rebuilds it from the lock to prove the point. It does not cover PyPI
+packaging or container-level reproducibility (Docker). By the end, you'll be
+able to create, lock, and reconstruct a Python environment — and explain why
+a lockfile, not a pinned `requirements.txt`, is what makes a result
+reproducible.

@@ -1,35 +1,30 @@
 # Motivation
 
-<!-- Every `##` becomes one slide. One idea each. -->
-
 ## Why it matters for agentic development
 
-> The case, made concretely. What does this tool, technique, or notion let an
-> agentic system do that is hard or impossible without it?
->
-> Tie it to agentic development specifically — not to software in general. If the
-> answer would read the same for any programming topic, you have not made the
-> case yet.
-
-Replace this paragraph.
+An agent run is an experiment, not a one-off script: it fits a baseline or
+scores against an eval harness, and the result only means something if the
+environment that produced it is fixed. An agent iterates unattended, often
+across many runs and machines, with nobody watching a library quietly change
+underneath it. Pinned environments and lockfiles are what let you reproduce a
+leaderboard result, hand it to a collaborator, and trust that a regression is
+real — not a dependency that drifted. The environment is part of the
+artifact; without it, the result isn't auditable.
 
 ## What goes wrong without it
 
-> The failure it prevents, shown rather than asserted. A concrete situation that
-> goes badly, and how it goes badly.
->
-> This is the paragraph that makes the tutorial worth reading. A reader who has
-> felt the failure will follow you through the mechanics; one who has not will
-> skim. Use a real case if you have one.
+An agent reports a fitness score; a rerun a week later gives a different
+number, with no code change.
 
-Replace this paragraph.
+![An unpinned dependency drifts, the score moves, and it reads as a code regression instead of environment drift.](figures/drift-chain.svg){#fig:drift width=92%}
+
+The natural read is that the harness is unreliable. The real fault is an
+unpinned dependency — and without a lockfile, nothing tells the two apart.
 
 ## When to reach for it
 
-> The bounds, stated by you rather than discovered by a frustrated reader. What
-> it is good for, and — just as important — when it is the wrong tool.
->
-> A technique with honestly stated limits is more usable than one presented as
-> universal, because the reader can tell whether their situation is in scope.
-
-Replace this paragraph.
+Lock the environment for anything you'll compare, share, or trust later — a
+leaderboard entry, a baseline others build on, an experiment you'll revisit.
+A throwaway exploration you're about to discard doesn't need it: the
+overhead only pays off once a result has to outlive the session that made
+it.

@@ -1,0 +1,52 @@
+<svg viewBox="0 0 980 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Spec, lockfile, interpreter, and package set</title>
+  <desc id="desc">A spec resolves into a package set, which can give a different answer each time. A lockfile replays into the same package set exactly. The interpreter and package set together form the environment.</desc>
+
+  <rect width="980" height="220" fill="#ffffff"/>
+
+  <defs>
+    <marker id="arrowB" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#23373b"/>
+    </marker>
+  </defs>
+
+  <g font-family="Helvetica, Arial, sans-serif">
+    <!-- spec box -->
+    <rect x="50" y="18" width="190" height="50" rx="6" fill="#ffffff" stroke="#23373b" stroke-width="1.5" stroke-dasharray="5,4"/>
+    <text x="145" y="36" text-anchor="middle" font-size="13" font-weight="bold" fill="#23373b">spec</text>
+    <text x="145" y="51" text-anchor="middle" font-size="10" font-family="Consolas, 'DejaVu Sans Mono', monospace" fill="#4a5a5e">numpy&gt;=2.0</text>
+    <text x="145" y="63" text-anchor="middle" font-size="9" fill="#8a9598">loose — a range</text>
+
+    <!-- lockfile box -->
+    <rect x="740" y="18" width="190" height="50" rx="6" fill="#ffffff" stroke="#23373b" stroke-width="1.5"/>
+    <text x="835" y="36" text-anchor="middle" font-size="13" font-weight="bold" fill="#23373b">lockfile</text>
+    <text x="835" y="51" text-anchor="middle" font-size="10" font-family="Consolas, 'DejaVu Sans Mono', monospace" fill="#4a5a5e">numpy==2.1.3</text>
+    <text x="835" y="63" text-anchor="middle" font-size="9" fill="#8a9598">exact — one build</text>
+
+    <!-- environment container -->
+    <rect x="300" y="118" width="380" height="86" rx="10" fill="#ffffff" stroke="#23373b" stroke-width="1.5" stroke-dasharray="5,4"/>
+    <text x="316" y="134" font-size="10" fill="#8a9598">environment</text>
+
+    <rect x="320" y="142" width="130" height="50" rx="6" fill="#ffffff" stroke="#23373b" stroke-width="1.5"/>
+    <text x="385" y="163" text-anchor="middle" font-size="12" font-weight="bold" fill="#23373b">interpreter</text>
+    <text x="385" y="178" text-anchor="middle" font-size="9" fill="#4a5a5e">which python</text>
+
+    <rect x="480" y="142" width="180" height="50" rx="6" fill="#23373b"/>
+    <text x="570" y="163" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">package set</text>
+    <text x="570" y="178" text-anchor="middle" font-size="9" fill="#c7d1d5">what's importable</text>
+
+    <line x1="450" y1="167" x2="478" y2="167" stroke="#23373b" stroke-width="2" marker-end="url(#arrowB)"/>
+
+    <!-- resolve arrow -->
+    <line x1="180" y1="70" x2="500" y2="140" stroke="#EB811B" stroke-width="2.5" marker-end="url(#arrowB)"/>
+    <rect x="205" y="90" width="170" height="30" fill="#ffffff"/>
+    <text x="290" y="102" text-anchor="middle" font-size="11" font-weight="bold" fill="#EB811B">resolve</text>
+    <text x="290" y="115" text-anchor="middle" font-size="9" fill="#EB811B">asks the index — can change</text>
+
+    <!-- replay arrow -->
+    <line x1="800" y1="70" x2="620" y2="140" stroke="#2E7D32" stroke-width="2.5" marker-end="url(#arrowB)"/>
+    <rect x="605" y="90" width="170" height="30" fill="#ffffff"/>
+    <text x="700" y="102" text-anchor="middle" font-size="11" font-weight="bold" fill="#2E7D32">replay</text>
+    <text x="700" y="115" text-anchor="middle" font-size="9" fill="#2E7D32">no index needed — can't drift</text>
+  </g>
+</svg>
