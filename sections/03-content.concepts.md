@@ -76,6 +76,44 @@ the reader can use the tool on a case this tutorial never showed them.
   not clarify. Four figures in one `##`-section is already a lot — a fifth
   risked `visual`'s "do not reward figure count" flag.
 
+- Split "How it works" into two `##` units — "spec to lockfile" and
+  "lockfile to environment" — after user feedback that the resolve/replay
+  dual-branch diagram should instead read as one linear pipeline: spec
+  handed to the interpreter resolves into a lockfile; that lockfile handed
+  back to the interpreter installs the exact package set, which together
+  with the interpreter *is* the environment. Replaced the single
+  `env-mental-model.svg` (which drew both branches at once) with two
+  figures, one per step (`env-mental-model.svg`, `env-mental-model-2.svg`),
+  since the two-step story doesn't fit one honest diagram at slide size —
+  same reasoning as every other split in this file, applied to a figure
+  instead of prose. Confirmed against a rendered deck (`output/slides.pdf`
+  pp. 8–9), comfortable room on both, not just clearing the frame edge.
+- Addressed three reader questions logged in `questions.txt` (slide 8: how
+  does spec relate to what follows, is `requirements.txt` a spec, is spec a
+  form of pinning; slide 10: does the lockfile update live, how does
+  `uv.lock` differ from `venv`'s `requirements-lock.txt`; slide 13: what is
+  seeding) without adding a figure or a `##` unit. "How it works" gained one
+  clause naming `requirements.txt` as the spec and forward-pointing to the
+  two sections that turn it into a lockfile — deliberately *not* added to
+  `env-mental-model.svg` itself, since an earlier decision (below) already
+  moved that figure away from filenames and onto the loose-vs-exact property,
+  and reintroducing them would undo that. "Pinning vs. lockfiles" gained
+  three words ("in the spec") tying pinning to the spec instead of treating
+  them as synonyms. The `uv` section's answer went into
+  `figures/uv-lockfile.svg`'s caption instead of prose — replaced "full
+  resolved tree; uv sync replays it exactly" with "hashes + platform pins —
+  rerun to update," mirroring `venv-create.svg`'s existing "rerun to update"
+  answer to the same real-time question, so the two figures now answer it
+  the same way instead of one prose block growing lopsided against the
+  other. Pitfalls gained a one-clause definition of seeding
+  (`random.seed(42)`) since that bullet named the term without defining it.
+  Confirmed against a rendered deck (`output/slides.pdf` pp. 8, 11, 13, 16)
+  — no overflow on any of the four touched slides.
+- Fixed `figures/drift-chain.svg`: the right-hand "actual: environment
+  moved" box ran to x=1000 inside a 980-wide viewBox, clipping its last 20px
+  in every output. Widened the viewBox (and background rect) to 1020 to
+  match the existing ~20px margin on the left rather than resizing the
+  boxes.
 - Reworked `figures/env-mental-model.svg` after user feedback that the
   spec-vs-lockfile distinction wasn't landing — the boxes were labeled by
   filename (`requirements.txt`, `uv.lock`), which names the artifact but not

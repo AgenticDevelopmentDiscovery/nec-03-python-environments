@@ -1,8 +1,8 @@
-<svg viewBox="0 0 980 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+<svg viewBox="0 0 1020 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
   <title id="title">How an unpinned dependency is mistaken for a code regression</title>
   <desc id="desc">An unpinned SciPy or NumPy dependency picks up a version bump, which shifts a numerical routine, which changes the fitness score. Without a lockfile this looks like a code regression, when the actual cause is environment drift.</desc>
 
-  <rect width="980" height="190" fill="#ffffff"/>
+  <rect width="1020" height="190" fill="#ffffff"/>
 
   <defs>
     <marker id="arrowD" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">

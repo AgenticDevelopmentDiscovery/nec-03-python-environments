@@ -37,18 +37,26 @@ open.
 - Wired real citations into "Where to go next" (`uv-docs`, `twelve-factor`,
   `conda-docs`, `conda-lock` in `references.bib`) — replaced the plain-text
   "the `uv` docs (Astral)" style mentions with `[@key]` so the sources are an
-  actual, checkable bibliography, not just names. `references.bib` holds
-  three more entries (`python-venv`, `pep405`, `pip-userguide`) that are
-  documented but deliberately left uncited: citing all seven pushed the
-  generated References slide past one frame (only ~5 of 7 entries fit, the
-  rest clipped) — citeproc gives beamer no automatic multi-frame
-  bibliography, and pandoc's per-heading class attributes don't reach the
-  auto-generated bibliography heading, so there's no clean way to ask for
-  `allowframebreaks` on it. Cutting to four is the same move this project
-  makes for any other overflowing `##` unit: fewer things, not a smaller
-  font. The three uncited entries are there for whoever adds the next
-  citation to pick from, not a self-cleaning TODO — remove them if a round
-  or a rewrite makes clear they'll never be cited.
+  actual, checkable bibliography, not just names.
+- Corrected the decision above (superseded, not history — see `rounds/` for
+  frozen records): the earlier read was that citing all seven `references.bib`
+  entries had no clean fix, since `reference-section-title`'s auto-generated
+  heading can't carry an `allowframebreaks` class and citeproc gives beamer
+  no automatic multi-frame bibliography. That's true of the *auto-generated*
+  heading specifically, but citeproc has a documented escape hatch: if the
+  document already contains a Div with id `refs`, citeproc fills *that* div
+  instead of appending its own heading at the end. Added
+  `## References {.allowframebreaks}` followed by an empty `::: {#refs} :::`
+  by hand at the end of this file, which both controls the heading level
+  (a normal `##` slide, no separate section-divider frame) and carries the
+  class citeproc's auto-heading couldn't. All seven entries are now cited —
+  added [@pep405] in `01-context` where `venv`'s origin is discussed, and
+  [@python-venv; @pip-userguide] in "Where to go next" — and beamer's
+  `allowframebreaks` splits them across two frames ("References i" / "References
+  ii") on its own, so nothing had to be cut to fit. Confirmed against a
+  rendered deck (`output/slides.pdf` pp. 22–23): both frames comfortably
+  under half full, and the document/site outputs list all seven under one
+  numbered "References" heading as before.
 
 ## Open questions
 

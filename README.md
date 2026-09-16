@@ -16,14 +16,15 @@ Clone it, replace the content in `sections/`, and run `/round`.
 ## What you get
 
 ```
-sections/           the source — one pair of files per section
-personas/           the reviewer panel, plus the aggregator
-rounds/             committed critique history: one folder per round
-site/               the website's template and stylesheet
-figures/            figures, referenced from the prose
-topic.md            the proposal — what this tutorial is and promises
-metadata.yaml       title, authors, and the declared audience
-justfile            every build recipe
+sections/                 the source — one pair of files per section
+personas/                the reviewer panel, plus the aggregator
+rounds/                   committed critique history: one folder per round
+site/                     the website's template and stylesheet
+figures/                  figures, referenced from the prose
+topic.md                  the proposal — what this tutorial is and promises
+metadata.yaml             title, authors, and the declared audience
+justfile                  every build recipe
+questions.txt             doubts that must be addressed in the referenced slides
 ```
 
 | | Command | Output |

@@ -1,0 +1,3 @@
+slide 10: is the lockfile updated in real time when changes are made? differences in using venv requirements-lock.txt and uv lock?
+slide 8: how is spec related to subsequent content? is requirements.txt or requirements-lock.txt a spec? is spec a form of pinning?
+slide 13: what is seeding?

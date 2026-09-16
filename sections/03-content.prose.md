@@ -1,14 +1,26 @@
 # Content
 
-## How it works
+## How it works: spec to lockfile
 
 Four things are easy to confuse: the **interpreter**, the **package set**,
 the **spec**, and the **lockfile**.
 
-![Spec: loose, resolved each time. Lockfile: exact, replayed each time.](figures/env-mental-model.svg){#fig:mental-model width=88%}
+![Spec: loose, written by hand. Handed to the interpreter, it resolves into a lockfile.](figures/env-mental-model.svg){#fig:mental-model width=88%}
 
-A spec is a range, resolved each install. A lockfile is one exact build,
-replayed — so it can't drift.
+A spec is loose, written by hand — `requirements.txt` is one. Hand it to
+the interpreter and it resolves into a lockfile: one exact build, generated
+once, not written by hand.
+
+## How it works: lockfile to environment
+
+The lockfile isn't a second spec — it's data the interpreter replays
+instead of resolving.
+
+![Lockfile handed to the interpreter installs the exact package set — together, the environment.](figures/env-mental-model-2.svg){#fig:mental-model-2 width=88%}
+
+Hand it to the interpreter and it installs that exact package set, every
+time — no re-resolving, so it can't drift. The next two sections write one:
+`venv`'s manual freeze, and `uv`'s built-in `uv lock`.
 
 ## `venv`: create and activate
 
@@ -33,23 +45,21 @@ for it when a dependency needs more than pure Python and wheels.
 
 ## Pinning vs. lockfiles
 
-Pinning a direct dependency (`numpy==2.1.3`) fixes *that* package — not the
-dozens it pulls in transitively.
+Pinning a dependency in the spec (`numpy==2.1.3`) fixes *that* package —
+not the dozens it pulls in transitively.
 
 ![Pinning fixes one node; a lockfile pins the whole tree.](figures/pin-vs-lock-tree.svg){#fig:pin-vs-lock width=88%}
 
 A lockfile pins all of them. Treat the spec as *intent* and the lockfile as
 *fact*: commit both, reproduce from the lockfile.
 
-## Demo: prove it with the symbolic-regression substrate
+## Demo: prove it with the bike-sharing example
 
-Build the same environment two ways — `venv`+`pip`, and separately `uv` —
-and confirm both run the linear-regression baseline identically. Generate a
-lockfile, **delete the environment entirely**, rebuild it from the lock
-alone, and rerun: the fitness score matches to the last digit. Then bump one
-dependency without pinning it and rerun — watch the score shift with no code
-change, the exact failure `02-motivation` described, now reproduced on
-purpose.
+- Build an environment using `uv`
+- Generate a lockfile, **delete the environment entirely**, rebuild it from the lock
+alone, and rerun: the fitness score matches to the last digit.
+- Then bump one dependency without pinning it and rerun — watch the score shift with no code
+change.
 
 ## Pitfalls
 
@@ -57,5 +67,7 @@ purpose.
   transitive dependency unpinned — only a lockfile closes that gap.
 - **Never committing the lockfile.** One that lives on a single machine
   reproduces nothing.
-- **Locking the environment and forgetting the random seed.** Environment
-  locking and seeding are independent — fixing one doesn't fix the other.
+- **Locking the environment and forgetting the random seed.** *Seeding*
+  fixes the RNG's starting state (`random.seed(42)`) so a stochastic run
+  repeats; it's independent of environment locking — fixing one doesn't
+  fix the other.
