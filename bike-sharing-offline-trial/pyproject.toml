@@ -5,7 +5,7 @@ description = "Bike-sharing regression exercise, packaged for a reproducible ven
 requires-python = ">=3.10,<3.11"
 dependencies = [
     "numpy==1.22.4",
-    "scipy==1.7.3",
+    "scipy>=1.7.3",
     "matplotlib==3.5.3",
 ]
 
